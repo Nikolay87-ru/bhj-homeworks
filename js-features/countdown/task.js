@@ -1,8 +1,16 @@
-let timerElement = document.getElementById("timer");
+let timerElement;
 
-let count = parseInt(timerElement.textContent);
+let count;
 
-const link = document.querySelector('#link');
+function getTimer() {
+  timerElement = document.getElementById("timer");
+
+  count = parseInt(timerElement.textContent);
+
+  if (count >= 86400) {
+    count = 86399;
+  } 
+}
 
 function getformatTime(seconds) {
   const hh = Math.floor(seconds / 3600);
@@ -18,7 +26,10 @@ function showformatTime() {
   timerElement.textContent = getformatTime(count);
 }
 
+getTimer();
 showformatTime();
+
+const link = document.querySelector("#link");
 
 const countdown = () => {
   count--;
@@ -30,6 +41,6 @@ const countdown = () => {
     alert(`Вы победили в конкурсе!`);
     link.click();
   }
-};
+}
 
 const intervalId = setInterval(countdown, 1000);
