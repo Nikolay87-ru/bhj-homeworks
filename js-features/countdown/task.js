@@ -1,5 +1,4 @@
 let timerElement;
-
 let count;
 
 function getTimer() {
@@ -9,7 +8,7 @@ function getTimer() {
 
   if (count >= 86400) {
     count = 86399;
-  } 
+  }
 }
 
 function getformatTime(seconds) {
@@ -22,25 +21,25 @@ function getformatTime(seconds) {
     .join(":");
 }
 
-function showformatTime() {
+const updateformatTime = () => {
   timerElement.textContent = getformatTime(count);
-}
+};
 
 getTimer();
-showformatTime();
+updateformatTime();
 
 const link = document.querySelector("#link");
 
 const countdown = () => {
   count--;
 
-  showformatTime();
+  updateformatTime();
 
   if (count === 0) {
     clearInterval(intervalId);
     alert(`Вы победили в конкурсе!`);
     link.click();
   }
-}
+};
 
 const intervalId = setInterval(countdown, 1000);
