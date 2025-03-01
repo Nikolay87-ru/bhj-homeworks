@@ -2,13 +2,9 @@
   font-weight: bold;
 }
 
-.clicker {
-  min-height: 200px;
-}
-
 .img__cookie {
   display: flex;
-  min-height: 150px;
+  min-height: 200px;
   justify-content: center;
   align-items: center;
 }
