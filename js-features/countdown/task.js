@@ -4,7 +4,6 @@ function startCountdown() {
 
   function getTimer() {
     timerElement = document.getElementById("timer");
-
     count = parseInt(timerElement.textContent);
 
     if (count >= 86400) {
