@@ -3,8 +3,8 @@ function getHole(index) {
 }
 
 function playGame() {
-  const deadElement = document.getElementById('dead');
-  const lostElement = document.getElementById('lost');
+  const deadElement = document.getElementById("dead");
+  const lostElement = document.getElementById("lost");
 
   let deadMole = parseInt(deadElement.textContent);
   let lostMole = parseInt(lostElement.textContent);
@@ -12,36 +12,34 @@ function playGame() {
   const updateCounters = () => {
     deadElement.textContent = deadMole;
     lostElement.textContent = lostMole;
-  }
+  };
 
   for (let i = 1; i <= 9; i++) {
-      const hole = getHole(i);
-      hole.onclick = function() {
-          if (!hole.classList.contains('hole_has-mole')) {
-            lostMole++;
-          } else {
-            deadMole++;
-          }
+    const hole = getHole(i);
+    hole.onclick = function () {
+      if (!hole.classList.contains("hole_has-mole")) {
+        lostMole++;
+      } else {
+        deadMole++;
+      }
 
-          updateCounters();
-
-          if (deadMole >= 10) {
-              alert(`Вы победили!`);
-              resetGame();
-          } 
-          
-          if (lostMole >= 5) {
-              alert(`Вы проиграли!`);
-              resetGame();
-          }
-      };
+      updateCounters();
+      resetGame();
+    };
   }
 
   function resetGame() {
-    deadMole = 0;
-    lostMole = 0;
-    deadElement.textContent = '0'; 
-    lostElement.textContent = '0';
+    if (deadMole >= 10) {
+      alert(`Вы победили!`);
+      deadMole = 0;
+      deadElement.textContent = "0";
+    }
+
+    if (lostMole >= 5) {
+      alert(`Вы проиграли!`);
+      lostMole = 0;
+      lostElement.textContent = "0";
+    }
   }
 }
 
