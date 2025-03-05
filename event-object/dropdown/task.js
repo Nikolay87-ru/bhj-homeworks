@@ -3,8 +3,6 @@ function initDropdowns() {
 
   dropdowns.forEach(dropdown => {
     const dropdownValue = dropdown.querySelector('.dropdown__value');
-    // let selectedItemOfList = dropdownValue.textContent;
-    // dropdownValue.textContent = selectedItemOfList;
     const dropdownList = dropdown.querySelector('.dropdown__list');
     const dropdownLinks = dropdown.querySelectorAll('.dropdown__link');
 
@@ -17,10 +15,10 @@ function initDropdowns() {
     setActiveList();
 
     const selectItemOfList = () => {
-      dropdownLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-          event.preventDefault(); 
-          dropdownValue.textContent = link.textContent; 
+      dropdownLinks.forEach(listItem => {
+        listItem.addEventListener('click', (clickOnLink) => {
+          clickOnLink.preventDefault(); 
+          dropdownValue.textContent = listItem.textContent; 
           dropdownList.classList.remove('dropdown__list_active'); 
         });
       });
