@@ -20,7 +20,9 @@ class Game {
 
   registerEvents() {
     document.addEventListener("keydown", (event) => {
-      if (!this.currentSymbol) return;
+      if (!this.currentSymbol) {
+        return;
+      }
 
       const ignoredKeys = [
         "Shift",
