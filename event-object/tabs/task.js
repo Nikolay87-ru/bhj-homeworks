@@ -2,7 +2,7 @@ class Tabs {
   constructor(container) {
       this.container = container;
       this.tabs = Array.from(container.querySelectorAll('.tab'));
-      this.contents = Array.from(container.querySelectorAll('.tab__content'));
+      this.tabsContent = Array.from(container.querySelectorAll('.tab__content'));
 
       this.initTabs()
   }
@@ -17,12 +17,13 @@ class Tabs {
       const indexTab = this.tabs.indexOf(activeTab);
 
       this.tabs.forEach(tab => tab.classList.remove('tab_active'));
-      this.contents.forEach(content => content.classList.remove('tab__content_active'));
+      this.tabsContent.forEach(content => content.classList.remove('tab__content_active'));
 
       activeTab.classList.add('tab_active');
-      this.contents[indexTab].classList.add('tab__content_active');
+      this.tabsContent[indexTab].classList.add('tab__content_active');
   }
 }
 
-  new Tabs(document.querySelectorAll('.tabs'));
-
+document.querySelectorAll('.tabs').forEach(tabsContainer => {
+  new Tabs(tabsContainer);
+});
