@@ -22,6 +22,14 @@ class Game {
     document.addEventListener("keydown", (event) => {
       if (!this.currentSymbol) return;
 
+      const ignoredKeys = [
+        'Shift', 'Alt', 'Control', 'CapsLock', 'Tab', 'Escape',
+      ];
+      
+      if (ignoredKeys.includes(event.key)) {
+        return; 
+      }
+
       const inputLetter = event.key?.toLowerCase();
       const currentSymbolText = this.currentSymbol.textContent.toLowerCase();
 
