@@ -38,7 +38,7 @@ class Game {
       }
 
       const inputLetter = event.key?.toLowerCase();
-      const currentSymbolText = this.currentSymbol.textContent.toLowerCase();
+      const currentSymbolText = this.currentSymbol.textContent;
 
       if (inputLetter === currentSymbolText) {
         this.success();
