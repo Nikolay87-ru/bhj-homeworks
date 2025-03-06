@@ -23,11 +23,16 @@ class Game {
       if (!this.currentSymbol) return;
 
       const ignoredKeys = [
-        'Shift', 'Alt', 'Control', 'CapsLock', 'Tab', 'Escape',
+        "Shift",
+        "Alt",
+        "Control",
+        "CapsLock",
+        "Tab",
+        "Escape",
       ];
-      
+
       if (ignoredKeys.includes(event.key)) {
-        return; 
+        return;
       }
 
       const inputLetter = event.key?.toLowerCase();
