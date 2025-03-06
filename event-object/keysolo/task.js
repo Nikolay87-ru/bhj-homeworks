@@ -9,21 +9,21 @@ class Game {
     this.timer = null;
 
     this.reset();
-
     this.registerEvents();
   }
 
   reset() {
-    this.setNewWord();
     this.winsElement.textContent = 0;
     this.lossElement.textContent = 0;
-    this.updateCountdown();
+    this.setNewWord();
   }
 
   registerEvents() {
     document.addEventListener("keydown", (event) => {
+      if (!this.currentSymbol) return;
+
       const inputLetter = event.key?.toLowerCase();
-      const currentSymbolText = this.currentSymbol.textContent;
+      const currentSymbolText = this.currentSymbol.textContent.toLowerCase();
 
       if (inputLetter === currentSymbolText) {
         this.success();
@@ -34,13 +34,11 @@ class Game {
   }
 
   success() {
-    // clearInterval(this.timer);
-    if (this.currentSymbol.classList.contains("symbol_current"))
-      this.currentSymbol.classList.remove("symbol_current");
+    this.currentSymbol.classList.remove("symbol_current");
     this.currentSymbol.classList.add("symbol_correct");
     this.currentSymbol = this.currentSymbol.nextElementSibling;
 
-    if (this.currentSymbol !== null) {
+    if (this.currentSymbol) {
       this.currentSymbol.classList.add("symbol_current");
       return;
     }
@@ -48,39 +46,41 @@ class Game {
     if (++this.winsElement.textContent === 10) {
       alert("Победа!");
       this.reset();
+    } else {
+      this.setNewWord();
     }
-    this.setNewWord();
   }
 
   fail() {
     clearInterval(this.timer);
+
     if (++this.lossElement.textContent === 5) {
       alert("Вы проиграли!");
       this.reset();
+    } else {
+      this.setNewWord();
     }
-    this.setNewWord();
   }
 
   setNewWord() {
     this.currentWord = this.getWord();
     this.renderWord(this.currentWord);
-    // this.updateCountdown();
     this.startCountdown();
   }
 
   getWord() {
     const words = [
-        "bob",
-        "awesome",
-        "netology",
-        "hello",
-        "kitty",
-        "rock",
-        "youtube",
-        "popcorn",
-        "cinema",
-        "love",
-        "javascript",
+        "bob дилан",
+        "awesome код",
+        "школа netology",
+        "hello медвед",
+        "kitty кэт",
+        "rock энд ролл",
+        "канал youtube",
+        "вкусный popcorn",
+        "cinema продакшн",
+        "петрович love пиво",
+        "страшный javascript",
       ],
       index = Math.floor(Math.random() * words.length);
 
@@ -113,9 +113,8 @@ class Game {
       count--;
       this.countdownElement.textContent = count;
 
-      if (count === 0) {
+      if (count <= 0) {
         this.fail();
-        clearInterval(this.timer);
       }
     }, 1000);
   }
