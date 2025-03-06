@@ -4,7 +4,7 @@ class Tabs {
       this.tabs = Array.from(container.querySelectorAll('.tab'));
       this.tabsContent = Array.from(container.querySelectorAll('.tab__content'));
 
-      this.initTabs()
+      this.initTabs();
   }
 
   initTabs() {
@@ -13,14 +13,14 @@ class Tabs {
       });
   }
 
-  setActiveTab(activeTab) {
-      const indexTab = this.tabs.indexOf(activeTab);
+  setActiveTab(clickedTab) {
+      const indexClickedTab = this.tabs.indexOf(clickedTab);
 
       this.tabs.forEach(tab => tab.classList.remove('tab_active'));
       this.tabsContent.forEach(content => content.classList.remove('tab__content_active'));
 
       activeTab.classList.add('tab_active');
-      this.tabsContent[indexTab].classList.add('tab__content_active');
+      this.tabsContent[indexClickedTab].classList.add('tab__content_active');
   }
 }
 
