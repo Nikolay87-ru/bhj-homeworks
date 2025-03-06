@@ -15,3 +15,6 @@
   font-weight: bold;
 }
 
+.card {
+  min-width: 35em;
+}
