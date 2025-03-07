@@ -30,7 +30,7 @@ class Tabs {
       }
     });
 
-    if (indexClickedTab !== -1) {
+    if (indexClickedTab >= 0) {
       clickedTab.classList.add("tab_active");
       this.tabsContent[indexClickedTab].classList.add("tab__content_active");
     }
