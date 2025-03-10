@@ -1,9 +1,9 @@
 class Rotator {
   constructor(rotator) {
     this.rotator = rotator;
-    this.cases = Array.from(this.rotator.querySelectorAll(".rotator__case"));
     this.activeCase = this.rotator.querySelector("[data-active]");
     this.activeCase.style.color = this.activeCase.dataset.color;
+    // this.activeCase.style.speed = parseInt(this.activeCase.dataset.speed, 10);
 
     this.initRotators();
   }
@@ -13,20 +13,19 @@ class Rotator {
   }
 
   activateRotators() {
-    const isActive = this.activeCase.hasAttribute(
-      "data-active"
-    );
-
-    setInterval(() => {
-      if (isActive) {
+    const switchCase = () => {
       this.activeCase.removeAttribute("data-active");
       this.activeCase =
         this.activeCase.nextElementSibling || this.rotator.firstElementChild;
       this.activeCase.setAttribute("data-active", "true");
-      
+
       this.activeCase.style.color = this.activeCase.dataset.color;
-      }
-    }, 1000);
+
+      const speed = parseInt(this.activeCase.dataset.speed, 10);
+      setTimeout(switchCase, speed);
+    };
+
+    switchCase();
   }
 }
 
