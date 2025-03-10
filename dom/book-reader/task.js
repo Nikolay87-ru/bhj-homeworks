@@ -3,11 +3,11 @@ class Book {
     this.container = container;
     this.bookContent = container.querySelector(".book__content");
     this.fontSize = Array.from(container.querySelectorAll(".font-size"));
-    this.fontColor = Array.from(container.querySelectorAll(".color"));
+    this.color = Array.from(container.querySelectorAll(".color"));
+    this.backgroundColor = Array.from(container.querySelectorAll(".color"));
 
     this.initBookFont();
-    this.initBookColor();
-    this.initBackgroundColor();
+    this.initColor();
   }
 
   initBookFont() {
@@ -19,17 +19,14 @@ class Book {
     });
   }
 
-  initBookColor() {
-    this.fontColor.forEach((colorButton) => {
+  initColor() {
+    this.color.forEach((colorButton) => {
       colorButton.addEventListener("click", (event) => {
         event.preventDefault();
         this.setFontColor(event.currentTarget);
+        this.setBackgroundColor(event.currentTarget);
       });
     });
-  }
-
-  initBackgroundColor() {
-
   }
 
   setFontSize(clickedFont) {
@@ -51,7 +48,7 @@ class Book {
   }
 
   setFontColor(clickedColor) {
-    this.fontSize.forEach((fontColorButton) => {
+    this.color.forEach((fontColorButton) => {
       fontColorButton.classList.remove("color_active");
     });
 
@@ -65,6 +62,24 @@ class Book {
       this.bookContent.classList.add("book_color-gray");
     } else if (color === "whitesmoke") {
       this.bookContent.classList.add("book_color-whitesmoke");
+    }
+  }
+
+  setBackgroundColor(clickedColor) {
+    this.color.forEach((bgColorButton) => {
+      bgColorButton.classList.remove("color_active");
+    });
+
+    clickedColor.classList.add("color_active");
+
+    const color = clickedColor.getAttribute("data-bg-color");
+
+    this.bookContent.classList.remove("book_bg-gray", "book_bg-black");
+
+    if (color === "gray") {
+      this.bookContent.classList.add("book_bg-gray");
+    } else if (color === "black") {
+      this.bookContent.classList.add("book_bg-black");
     }
   }
 }
