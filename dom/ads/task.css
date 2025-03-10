@@ -2,7 +2,7 @@
   display: none;
 }
 
-.rotator__case_active {
+[data-active] {
   display: inline;
 }
 
