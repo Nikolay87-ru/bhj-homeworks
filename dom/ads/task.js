@@ -3,6 +3,7 @@ class Rotator {
     this.rotator = rotator;
     this.cases = Array.from(this.rotator.querySelectorAll(".rotator__case"));
     this.activeCase = this.rotator.querySelector("[data-active]");
+    this.activeCase.style.color = this.activeCase.dataset.color;
 
     this.initRotators();
   }
@@ -12,17 +13,19 @@ class Rotator {
   }
 
   activateRotators() {
-    // const isActive = this.activeCase.hasAttribute(
-    //   "[data-active]"
-    // );
+    const isActive = this.activeCase.hasAttribute(
+      "data-active"
+    );
 
     setInterval(() => {
-      // if (isActive) {
+      if (isActive) {
       this.activeCase.removeAttribute("data-active");
       this.activeCase =
         this.activeCase.nextElementSibling || this.rotator.firstElementChild;
       this.activeCase.setAttribute("data-active", "true");
-      // }
+      
+      this.activeCase.style.color = this.activeCase.dataset.color;
+      }
     }, 1000);
   }
 }
