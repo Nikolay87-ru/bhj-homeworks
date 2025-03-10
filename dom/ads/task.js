@@ -8,23 +8,21 @@ class Rotator {
   }
 
   initRotators() {
-    window.addEventListener("load", () => this.activateRotators());
+    const speed = parseInt(this.activeCase.dataset.speed, 10);
+
+    setTimeout(() => {
+      this.activateRotators();
+      this.initRotators();
+    }, speed);
   }
 
   activateRotators() {
-    const switchCase = () => {
-      this.activeCase.removeAttribute("data-active");
-      this.activeCase =
-        this.activeCase.nextElementSibling || this.rotator.firstElementChild;
-      this.activeCase.setAttribute("data-active", "true");
+    this.activeCase.removeAttribute("data-active");
+    this.activeCase =
+      this.activeCase.nextElementSibling || this.rotator.firstElementChild;
+    this.activeCase.setAttribute("data-active", "true");
 
-      this.activeCase.style.color = this.activeCase.dataset.color;
-
-      const speed = parseInt(this.activeCase.dataset.speed, 10);
-      setTimeout(switchCase, speed);
-    };
-
-    switchCase();
+    this.activeCase.style.color = this.activeCase.dataset.color;
   }
 }
 
