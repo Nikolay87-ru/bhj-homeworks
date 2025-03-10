@@ -3,7 +3,6 @@ class Rotator {
     this.rotator = rotator;
     this.activeCase = this.rotator.querySelector("[data-active]");
     this.activeCase.style.color = this.activeCase.dataset.color;
-    // this.activeCase.style.speed = parseInt(this.activeCase.dataset.speed, 10);
 
     this.initRotators();
   }
