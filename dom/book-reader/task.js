@@ -3,7 +3,9 @@ class Book {
     this.container = container;
     this.bookContent = container.querySelector(".book__content");
     this.fontSizeButtons = Array.from(
-      container.querySelectorAll(".book__control_font-size .font-size[data-size]")
+      container.querySelectorAll(
+        ".book__control_font-size .font-size[data-size]"
+      )
     );
     this.textColorButtons = Array.from(
       container.querySelectorAll(".book__control_color .color[data-text-color]")
