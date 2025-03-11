@@ -11,12 +11,12 @@ class Rotator {
     const speed = parseInt(this.activeCase.dataset.speed, 10);
 
     setTimeout(() => {
-      this.activateRotators();
+      this.activateRotator();
       this.initRotators();
     }, speed);
   }
 
-  activateRotators() {
+  activateRotator() {
     this.activeCase.removeAttribute("data-active");
     this.activeCase =
       this.activeCase.nextElementSibling || this.rotator.firstElementChild;
