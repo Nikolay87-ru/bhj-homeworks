@@ -6,25 +6,28 @@ class Book {
     this.textColorButtons = Array.from(container.querySelectorAll(".book__control_color .color[data-text-color]"));
     this.bgColorButtons = Array.from(container.querySelectorAll(".book__control_background .color[data-bg-color]"));
 
-    this.initBookFont();
-    this.initColor();
+    this.initButtons();
   }
 
-  initBookFont() {
-    this.fontSize.forEach((fontButton) => {
-      fontButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        this.setFontSize(event.currentTarget);
+  initButtons() {
+    this.fontSizeButtons.forEach(button => {
+      button.addEventListener("click", e => {
+        e.preventDefault();
+        this.setFontSize(e.currentTarget);
       });
     });
-  }
 
-  initColor() {
-    this.color.forEach((colorButton) => {
-      colorButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        this.setFontColor(event.currentTarget);
-        this.setBackgroundColor(event.currentTarget);
+    this.textColorButtons.forEach(button => {
+      button.addEventListener("click", e => {
+        e.preventDefault();
+        this.setFontColor(e.currentTarget);
+      });
+    });
+
+    this.bgColorButtons.forEach(button => {
+      button.addEventListener("click", e => {
+        e.preventDefault();
+        this.setBackgroundColor(e.currentTarget);
       });
     });
   }
