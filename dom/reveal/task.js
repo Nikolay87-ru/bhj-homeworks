@@ -13,10 +13,11 @@ class Reveal {
 
   showActiveReveals() {
     this.reveals.forEach((reveal) => {
-      const revealBox = reveal.getBoundingClientRect();
-      const isVisible = revealBox.top < window.innerHeight && revealBox.bottom >= 0;
+      const { innerHeight } = window;
 
-      if (isVisible) {
+      const { top } = reveal.getBoundingClientRect();
+
+      if (top < innerHeight && top > 0) {
         reveal.classList.add("reveal_active");
       } else {
         reveal.classList.remove("reveal_active");
