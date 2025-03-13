@@ -1,6 +1,5 @@
 class Tooltip {
-  constructor(container) {
-    this.container = container;
+  constructor() {
     this.hasTooltip = Array.from(document.querySelectorAll(".has-tooltip"));
     this.tooltip = document.querySelector(".tooltip");
 
@@ -24,6 +23,5 @@ class Tooltip {
   }
 }
 
-document.querySelectorAll(".has-tooltip").forEach((tooltipContainer) => {
-  new Tooltip(tooltipContainer);
-});
+new Tooltip(document.body);
+
