@@ -32,11 +32,11 @@ class Tooltip {
 
   createTooltip(index) {
     const tooltip = document.createElement("div");
+    const tooltipIndex = this.hasTooltips[index];
 
     tooltip.className = "tooltip tooltip_active";
-    tooltip.textContent = element.title;
+    tooltip.textContent = tooltipIndex.title;
 
-    const tooltipIndex = this.hasTooltips[index];
     const rect = tooltipIndex.getBoundingClientRect();
     tooltip.style.top = `${rect.bottom}px`;
     tooltip.style.left = `${rect.left}px`;
