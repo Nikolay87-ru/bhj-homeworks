@@ -7,8 +7,9 @@ class Tooltip {
   }
 
   initTooltip() {
-    this.hasTooltip.forEach((click) => {
-      click.addEventListener("click", (e) => {
+    this.hasTooltip.forEach((elementClick) => {
+      elementClick.addEventListener("click", (e) => {
+        e.preventDefault();
         this.showTooltip(e.currentTarget);
       });
     });
