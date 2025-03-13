@@ -1,42 +1,56 @@
 class Tooltip {
   constructor() {
-    this.hasTooltip = Array.from(document.querySelectorAll(".has-tooltip"));
+    this.hasTooltips = Array.from(document.querySelectorAll(".has-tooltip"));
+    this.activeIndex = -1;
     this.activeTooltip = null;
 
-    this.initTooltipElement();
+    this.initTooltips();
   }
 
-  initTooltipElement() {
-    this.hasTooltip.forEach((element) => {
-      element.addEventListener("click", (e) => {
+  initTooltips() {
+    this.hasTooltips.forEach((clickedText, index) => {
+      clickedText.dataset.tooltipIndex = index;
+      clickedText.addEventListener("click", (e) => {
         e.preventDefault();
-        this.createTooltip(e.currentTarget);
+        this.initTooltipClick(index);
       });
     });
   }
 
-  createTooltip(clickedText) {
-    if (this.activeTooltip?.dataset.element === clickedText) {
-      this.activeTooltip.remove();
-      this.activeTooltip = null;
+  initTooltipClick(index) {
+    if (this.activeIndex === index) {
+      this.removeTooltip();
+      this.activeIndex = -1;
       return;
-    } else if (this.activeTooltip) {
-      this.activeTooltip.remove();
     }
 
+    this.removeTooltip();
+
+    this.createTooltip(index);
+    this.activeIndex = index;
+  }
+
+  createTooltip(index) {
     const tooltip = document.createElement("div");
 
     tooltip.className = "tooltip tooltip_active";
-    tooltip.textContent = clickedText.title;
-    tooltip.dataset.element = clickedText;
+    tooltip.textContent = element.title;
 
-    const tooltipBox = clickedText.getBoundingClientRect();
-    tooltip.style.top = `${tooltipBox.bottom}px`;
-    tooltip.style.left = `${tooltipBox.left}px`;
+    const tooltipIndex = this.hasTooltips[index];
+    const rect = tooltipIndex.getBoundingClientRect();
+    tooltip.style.top = `${rect.bottom}px`;
+    tooltip.style.left = `${rect.left}px`;
 
     document.body.append(tooltip);
     this.activeTooltip = tooltip;
   }
+
+  removeTooltip() {
+    if (this.activeTooltip) {
+      this.activeTooltip.remove();
+      this.activeTooltip = null;
+    }
+  }
 }
 
-new Tooltip(document.body);
+new Tooltip();
