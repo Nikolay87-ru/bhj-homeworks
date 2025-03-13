@@ -1,7 +1,6 @@
 class Tooltip {
   constructor() {
     this.hasTooltip = Array.from(document.querySelectorAll(".has-tooltip"));
-    this.tooltip = document.querySelector(".tooltip");
 
     this.initTooltip();
   }
@@ -16,13 +15,14 @@ class Tooltip {
   }
 
   showTooltip(clickedText) {
-    const indexClickedText = this.hasTooltip.indexOf(clickedText);
+    const tooltip = document.createElement("div");
 
-    if (indexClickedText !== -1) {
-      this.tooltip.classList.toggle("tooltip_active");
-    }
+    tooltip.className("tooltip tooltip_active");
+    tooltip.textContent = clickedText.title;
+    tooltip.dataset.element = clickedText;
+
+    document.body.append(tooltip);
+    this.activeTooltip = tooltip;
   }
 }
-
 new Tooltip(document.body);
-
