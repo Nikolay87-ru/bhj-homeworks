@@ -1,6 +1,7 @@
 class Tooltip {
   constructor() {
     this.hasTooltip = Array.from(document.querySelectorAll(".has-tooltip"));
+    this.activeTooltip = null;
 
     this.initTooltipElement();
   }
@@ -15,9 +16,12 @@ class Tooltip {
   }
 
   createTooltip(clickedText) {
-    if (this.activeTooltip?.dataset.element === clickedText || this.activeTooltip) {
+    if (this.activeTooltip?.dataset.element === clickedText) {
       this.activeTooltip.remove();
+      this.activeTooltip = null;
       return;
+    } else if (this.activeTooltip) {
+      this.activeTooltip.remove();
     }
 
     const tooltip = document.createElement("div");
