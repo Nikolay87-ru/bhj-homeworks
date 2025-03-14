@@ -10,7 +10,7 @@ class Todo {
   }
 
   initTasksForm() {
-    this.button.addEventListener("click", (e) => {
+    this.tasksForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const newTask = this.taskInput.value.trim();
 
@@ -43,6 +43,7 @@ class Todo {
     titleElement.textContent = task;
 
     this.tasksList.appendChild(taskItem);
+    taskItem.appendChild(titleElement);
   }
 }
 
