@@ -5,6 +5,7 @@ class Todo {
     this.tasksList = document.getElementById("tasks__list");
 
     this.initTasksForm();
+    this.initInputErrorListener();
   }
 
   initTasksForm() {
@@ -20,7 +21,9 @@ class Todo {
       this.taskInput.classList.remove("error");
       this.taskInput.value = "";
     });
+  }
 
+  initInputErrorListener() {
     this.taskInput.addEventListener("input", () => {
       if (this.taskInput.value.trim()) {
         this.taskInput.classList.remove("error");
