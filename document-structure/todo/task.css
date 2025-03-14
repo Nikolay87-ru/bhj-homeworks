@@ -70,3 +70,7 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
+
+.tasks__input.error::placeholder {
+  color: red;
+}
