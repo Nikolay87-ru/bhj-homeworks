@@ -22,6 +22,10 @@ button {
   font-family: Golos, Arial, sans-serif;
   border: 1px solid #e2e2e2;
   box-sizing: border-box;
+
+  &.error::placeholder {
+    color: red;
+  }
 }
 
 .tasks__add {
@@ -69,8 +73,4 @@ button {
   font-size: 30px;
   text-decoration: none;
   cursor: pointer;
-}
-
-.tasks__input.error::placeholder {
-  color: red;
 }
