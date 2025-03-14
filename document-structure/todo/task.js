@@ -6,6 +6,7 @@ class Todo {
 
     this.initTasksForm();
     this.removeInputError();
+    this.loadTasksFromLocalStorage();
   }
 
   initTasksForm() {
@@ -49,6 +50,7 @@ class Todo {
     removeTask.addEventListener("click", (e) => {
       e.preventDefault();
       taskItem.remove();
+      this.saveTasksToLocalStorage();
     });
 
     this.tasksList.appendChild(taskItem);
@@ -58,7 +60,7 @@ class Todo {
 
   saveTasksToLocalStorage() {
     const tasks = [];
-    document.querySelectorAll(".tasks__list task").forEach((task) => {
+    document.querySelectorAll(".tasks__list .task").forEach((task) => {
       const taskText = task.textContent;
       const isCompleted = task.classList.contains("completed");
       tasks.push({ text: taskText, completed: isCompleted });
