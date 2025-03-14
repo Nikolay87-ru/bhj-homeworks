@@ -35,14 +35,15 @@ class Todo {
   }
 
   addTask(task) {
-    const listItem = document.createElement("li");
-    // const taskText = document.createElement("span");
-    listItem.textContent = task;
+    const taskItem = document.createElement("div");
+    taskItem.className = "task";
 
-    this.tasksList.appendChild(listItem);
+    const titleElement = document.createElement("div");
+    titleElement.className = "task__title";
+    titleElement.textContent = task;
+
+    this.tasksList.appendChild(taskItem);
   }
-
-
 }
 
 new Todo();
