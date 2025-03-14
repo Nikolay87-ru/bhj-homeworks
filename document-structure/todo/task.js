@@ -3,13 +3,14 @@ class Todo {
     this.tasksForm = document.getElementById("tasks__form");
     this.taskInput = document.getElementById("task__input");
     this.tasksList = document.getElementById("tasks__list");
+    this.button = document.getElementById("tasks__add");
 
     this.initTasksForm();
-    this.initInputErrorListener();
+    this.removeInputError();
   }
 
   initTasksForm() {
-    this.tasksForm.addEventListener("submit", (e) => {
+    this.button.addEventListener("click", (e) => {
       e.preventDefault();
       const newTask = this.taskInput.value.trim();
 
@@ -20,10 +21,12 @@ class Todo {
 
       this.taskInput.classList.remove("error");
       this.taskInput.value = "";
+
+      this.addTask(newTask);
     });
   }
 
-  initInputErrorListener() {
+  removeInputError() {
     this.taskInput.addEventListener("input", () => {
       if (this.taskInput.value.trim()) {
         this.taskInput.classList.remove("error");
@@ -33,11 +36,13 @@ class Todo {
 
   addTask(task) {
     const listItem = document.createElement("li");
-    const taskText = document.createElement("span");
+    // const taskText = document.createElement("span");
     listItem.textContent = task;
 
-    todoList.appendChild(listItem);
+    this.tasksList.appendChild(listItem);
   }
+
+
 }
 
 new Todo();
