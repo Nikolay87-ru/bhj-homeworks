@@ -56,6 +56,7 @@ class Todo {
     this.tasksList.appendChild(taskItem);
     taskItem.appendChild(titleElement);
     taskItem.appendChild(removeTask);
+    this.saveTasksToLocalStorage();
   }
 
   saveTasksToLocalStorage() {
@@ -66,12 +67,12 @@ class Todo {
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      savedTasks.forEach((task) => {
-        addTask(task.text);
-      });
+  loadTasksFromLocalStorage() {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    savedTasks.forEach((task) => {
+      this.addTask(task.text);
     });
   }
 }
