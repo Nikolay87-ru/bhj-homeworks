@@ -61,9 +61,8 @@ class Todo {
   saveTasksToLocalStorage() {
     const tasks = [];
     document.querySelectorAll(".tasks__list .task").forEach((task) => {
-      const taskText = task.textContent;
-      const isCompleted = task.classList.contains("completed");
-      tasks.push({ text: taskText, completed: isCompleted });
+      const taskText = task.querySelector(".task__title").textContent;
+      tasks.push({ text: taskText });
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
