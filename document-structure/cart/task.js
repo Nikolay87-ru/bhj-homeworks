@@ -1,11 +1,10 @@
-class Cart {
+class Counters {
   constructor(productItem) {
     this.product = productItem;
     this.incButton = productItem.querySelector('.product__quantity-control_inc');
     this.decButton = productItem.querySelector('.product__quantity-control_dec');
     this.productQuantity = productItem.querySelector('.product__quantity-value');
     this.value = 1;
-    this.products = document.querySelectorAll('.product');
 
     this.initCounter();
   }
@@ -25,12 +24,18 @@ class Cart {
   updateCounter() {
     this.productQuantity.textContent = this.value;
   }
+}
+
+class Cart {
+  constructor() {
+    this.products = document.querySelectorAll('.product');
+
+    this.initAllCounters();
+  }
 
   initAllCounters() {
-    this.products.forEach(product => {
-      new Cart(product);
-    });
+    this.products.forEach(product => new Counters(product));
   }
 }
 
-// new Cart();
+new Cart();
