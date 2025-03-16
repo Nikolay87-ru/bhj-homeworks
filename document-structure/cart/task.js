@@ -28,15 +28,19 @@ class Cart {
       if (!container) return;
 
       const id = container.dataset.id;
-      const countElement = container.querySelector(".product__quantity-value");
+      const decrement = target.classList.contains('product__quantity-control_dec');
+      const increment = target.classList.contains('product__quantity-control_inc');
 
-      if (target.classList.contains(".product__quantity-control_inc")) {
+      if (increment) {
         counters[id]++;
-      } else if (target.classList.contains(".product__quantity-control_dec")) {
+      } else if (decrement) {
         counters[id] = Math.max(0, counters[id] - 1);
       }
 
-      countElement.textContent = counters[id];
+      const product = document.querySelector(`.product[data-id="${id}"]`);
+        if (product) {
+            product.querySelector('.product__quantity-value').textContent = counters[id];
+        }
     });
   }
 }
