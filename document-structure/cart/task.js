@@ -4,16 +4,22 @@ class Counters {
     this.incButton = productItem.querySelector('.product__quantity-control_inc');
     this.decButton = productItem.querySelector('.product__quantity-control_dec');
     this.productQuantity = productItem.querySelector('.product__quantity-value');
+    this.productAddToCart = productItem.querySelector('.product__add');
     this.value = 1;
+    this.id = productItem.dataset.id;
 
     this.initCounter();
   }
 
   initCounter() {
   this.updateCounter();
-
-  this.incButton.addEventListener('click', () => this.changeValue(1));
-  this.decButton.addEventListener('click', () => this.changeValue(-1));
+  this.initEvents();
+  }
+  
+  initEvents() {
+    this.incButton.addEventListener('click', () => this.changeValue(1));
+    this.decButton.addEventListener('click', () => this.changeValue(-1));
+    this.productAddToCart.addEventListener('click', () => this.addToCart());
   }
 
   changeValue(num) {
@@ -23,6 +29,10 @@ class Counters {
 
   updateCounter() {
     this.productQuantity.textContent = this.value;
+  }
+
+  addToCart() {
+
   }
 }
 
