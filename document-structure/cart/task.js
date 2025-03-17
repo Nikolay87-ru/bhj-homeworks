@@ -1,5 +1,5 @@
 class Product {
-  constructor(productItem) {
+  constructor(productItem, cart) {
     this.product = productItem;
     this.incButton = productItem.querySelector('.product__quantity-control_inc');
     this.decButton = productItem.querySelector('.product__quantity-control_dec');
@@ -57,6 +57,23 @@ class CreateCart {
     }
   }
 
+  createCartProduct(id, imageSrc, quantity) {
+    const cartProduct = document.createElement('div');
+    cartProduct.className = 'cart__product';
+    cartProduct.dataset.id = id;
+
+    const img = document.createElement('img');
+    img.className = 'cart__product-image';
+    img.src = imageSrc;
+
+    const count = document.createElement('div');
+    count.className = 'cart__product-count';
+    count.textContent = quantity;
+
+    cartProduct.append(img, count);
+    return cartProduct;
+  }
+
 }
 
 class CompliteCart {
@@ -74,4 +91,4 @@ class CompliteCart {
   }
 }
 
-
+new CompliteCart();
