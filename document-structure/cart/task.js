@@ -44,7 +44,17 @@ class CreateCart {
   }
 
   addProduct(id, imageSrc, quantity) {
-
+    if (this.items[id]) {
+      this.items[id].count += quantity;
+      this.items[id].element.querySelector('.cart__product-count').textContent = this.items[id].count;
+    } else {
+      const cartProduct = this.createCartProduct(id, imageSrc, quantity);
+      this.cartContainer.appendChild(cartProduct);
+      this.items[id] = {
+        element: cartProduct,
+        count: quantity
+      };
+    }
   }
 
 }
