@@ -1,4 +1,4 @@
-class Counters {
+class Product {
   constructor(productItem) {
     this.product = productItem;
     this.incButton = productItem.querySelector('.product__quantity-control_inc');
@@ -7,6 +7,7 @@ class Counters {
     this.productAddToCart = productItem.querySelector('.product__add');
     this.value = 1;
     this.id = productItem.dataset.id;
+    this.cart = cart;
 
     this.initCounter();
   }
@@ -32,20 +33,35 @@ class Counters {
   }
 
   addToCart() {
-
+    this.cart.addProduct(this.id, this.image, this.value);
   }
 }
 
-class Cart {
+class CreateCart {
   constructor() {
-    this.products = document.querySelectorAll('.product');
-
-    this.initAllCounters();
+    this.items = {};
+    this.cartContainer = document.querySelector('.cart__products');
   }
 
-  initAllCounters() {
-    this.products.forEach(product => new Counters(product));
+  addProduct(id, imageSrc, quantity) {
+
+  }
+
+}
+
+class CompliteCart {
+  constructor() {
+    this.cart = new CreateCart();
+    
+    this.products = document.querySelectorAll('.product');
+    this.initializeProducts();
+  }
+
+  initializeProducts() {
+    this.products.forEach(productItem => {
+      new Product(productItem, this.cart);
+    });
   }
 }
 
-new Cart();
+
