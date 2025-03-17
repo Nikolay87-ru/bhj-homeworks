@@ -51,7 +51,7 @@ class CreateCart {
         this.items[id].count;
     } else {
       const cartProduct = this.createCartProduct(id, imageSrc, quantity);
-      this.cartContainer.appendChild(cartProduct);
+      this.cartContainer.append(cartProduct);
       this.items[id] = {
         element: cartProduct,
         count: quantity,
