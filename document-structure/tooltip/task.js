@@ -1,55 +1,34 @@
 class Tooltip {
   constructor() {
-    this.hasTooltips = Array.from(document.querySelectorAll(".has-tooltip"));
-    this.activeIndex = -1;
-    this.activeTooltip = null;
+    this.hasTooltip = document.querySelectorAll(".has-tooltip");
+    this.tooltip = document.createElement("div");
+    this.tooltip.className = "tooltip";
+    document.body.appendChild(this.tooltip);
+    
+    this.activeLink = null;
 
-    this.initTooltips();
+    this.initTooltip()
   }
 
-  initTooltips() {
-    this.hasTooltips.forEach((clickedText, index) => {
-      clickedText.dataset.tooltipIndex = index;
-      clickedText.addEventListener("click", (e) => {
+  initTooltip() {
+    this.hasTooltip.forEach(link => {
+      link.addEventListener("click", e => {
         e.preventDefault();
-        this.initTooltipClick(index);
+        this.toggle(link);
       });
     });
   }
 
-  initTooltipClick(index) {
-    if (this.activeIndex === index) {
-      this.removeTooltip();
-      this.activeIndex = -1;
-      return;
-    }
+  initTooltipClick() {
 
-    this.removeTooltip();
-
-    this.createTooltip(index);
-    this.activeIndex = index;
   }
 
-  createTooltip(index) {
-    const tooltip = document.createElement("div");
-    const tooltipIndex = this.hasTooltips[index];
+  createTooltip() {
 
-    tooltip.className = "tooltip tooltip_active";
-    tooltip.textContent = tooltipIndex.title;
-
-    const rect = tooltipIndex.getBoundingClientRect();
-    tooltip.style.top = `${rect.bottom}px`;
-    tooltip.style.left = `${rect.left}px`;
-
-    document.body.append(tooltip);
-    this.activeTooltip = tooltip;
   }
 
   removeTooltip() {
-    if (this.activeTooltip) {
-      this.activeTooltip.remove();
-      this.activeTooltip = null;
-    }
+
   }
 }
 
