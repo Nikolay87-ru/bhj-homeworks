@@ -44,21 +44,22 @@ class CreateCart {
     this.items = {};
     this.cartContainer = document.querySelector(".cart__products");
     this.cartTitle = document.querySelector(".cart__title");
-    this.loadFromLocalStorage();  
+    this.loadFromLocalStorage();
   }
 
   addProduct(id, imageSrc, quantity) {
     if (this.items[id]) {
       this.items[id].count += quantity;
-      this.items[id].element.querySelector(".cart__product-count").textContent = this.items[id].count;
+      this.items[id].element.querySelector(".cart__product-count").textContent =
+        this.items[id].count;
     } else {
       const cartProduct = this.createCartProduct(id, imageSrc, quantity);
       this.cartContainer.append(cartProduct);
       this.items[id] = { element: cartProduct, count: quantity, imageSrc };
     }
 
-    if (this.items.length !== 0) {
-      this.cartTitle.classList.toggle("cart__title_active");
+    if (Object.keys(this.items).length !== 0) {
+      this.cartTitle.classList.add("cart__title_active");
     } else {
       this.cartTitle.classList.remove("cart__title_active");
     }
@@ -92,6 +93,11 @@ class CreateCart {
     if (this.items[id]) {
       this.items[id].element.remove();
       delete this.items[id];
+
+      if (Object.keys(this.items).length === 0) {
+        this.cartTitle.classList.remove("cart__title_active");
+      }
+
       this.saveToLocalStorage();
     }
   }
@@ -101,7 +107,7 @@ class CreateCart {
     for (const id in this.items) {
       savedData[id] = {
         count: this.items[id].count,
-        imageSrc: this.items[id].imageSrc
+        imageSrc: this.items[id].imageSrc,
       };
     }
     localStorage.setItem("cart", JSON.stringify(savedData));
@@ -123,12 +129,12 @@ class CompleteCart {
   }
 
   initProducts() {
-    document.querySelectorAll(".product").forEach(product => {
+    document.querySelectorAll(".product").forEach((product) => {
       new Product(product, this.cart);
     });
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   new CompleteCart();
 });
