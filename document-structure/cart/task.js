@@ -3,7 +3,6 @@ class Product {
     this.product = productItem;
     this.incButton = productItem.querySelector(".product__quantity-control_inc");
     this.decButton = productItem.querySelector(".product__quantity-control_dec");
-    this.removeButton = productItem.querySelector(".product__remove");
     this.productQuantity = productItem.querySelector(".product__quantity-value");
     this.productAddToCart = productItem.querySelector(".product__add");
     this.image = productItem.querySelector(".product__image").src;
@@ -41,26 +40,21 @@ class Product {
 
 class CreateCart {
   constructor() {
-    this.items = [];
+    this.items = {};
     this.cartContainer = document.querySelector(".cart__products");
-    this.cartProduct = document.querySelector(".cart__product");
-    this.loadProductsFromLocalStorage();
+    this.loadFromLocalStorage();  
   }
 
   addProduct(id, imageSrc, quantity) {
     if (this.items[id]) {
       this.items[id].count += quantity;
-      this.items[id].element.querySelector(".cart__product-count").textContent =
-        this.items[id].count;
+      this.items[id].element.querySelector(".cart__product-count").textContent = this.items[id].count;
     } else {
       const cartProduct = this.createCartProduct(id, imageSrc, quantity);
       this.cartContainer.append(cartProduct);
-      this.items[id] = {
-        element: cartProduct,
-        count: quantity,
-      };
+      this.items[id] = { element: cartProduct, count: quantity, imageSrc };
     }
-    this.saveProductsToLocalStorage();
+    this.saveToLocalStorage();
   }
 
   createCartProduct(id, imageSrc, quantity) {
@@ -72,18 +66,16 @@ class CreateCart {
     img.className = "cart__product-image";
     img.src = imageSrc;
 
-    const buttonRemove = document.createElement("div");
-    buttonRemove.className = "product__remove";
-    buttonRemove.innerHTML = "Удалить";
-    buttonRemove.addEventListener("click", () => {
-      this.removeProduct(id); 
-    });
-
     const count = document.createElement("div");
     count.className = "cart__product-count";
     count.textContent = quantity;
 
-    cartProduct.append(img, buttonRemove, count);
+    const buttonRemove = document.createElement("div");
+    buttonRemove.className = "product__remove";
+    buttonRemove.textContent = "Удалить";
+    buttonRemove.addEventListener("click", () => this.removeProduct(id));
+
+    cartProduct.append(img, count, buttonRemove);
     return cartProduct;
   }
 
@@ -91,45 +83,43 @@ class CreateCart {
     if (this.items[id]) {
       this.items[id].element.remove();
       delete this.items[id];
+      this.saveToLocalStorage();
     }
   }
 
-  saveProductsToLocalStorage() {
-    const products = [];
-    this.items.forEach( id => {
-      products[id] = {
+  saveToLocalStorage() {
+    const savedData = {};
+    for (const id in this.items) {
+      savedData[id] = {
         count: this.items[id].count,
         imageSrc: this.items[id].imageSrc
       };
-    });
-
-    localStorage.setItem("products", JSON.stringify(products));
+    }
+    localStorage.setItem("cart", JSON.stringify(savedData));
   }
 
-  loadProductsFromLocalStorage() {
-    const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
-    if (savedProducts) {
-      savedProducts.forEach( id => {
-        const {count, imageSrc} = savedProducts[id];
-        this.addProduct(id, imageSrc, count);
-      }); 
+  loadFromLocalStorage() {
+    const savedData = JSON.parse(localStorage.getItem("cart")) || {};
+    for (const id in savedData) {
+      const { count, imageSrc } = savedData[id];
+      this.addProduct(id, imageSrc, count);
     }
   }
 }
 
-class CompliteCart {
+class CompleteCart {
   constructor() {
     this.cart = new CreateCart();
-    this.products = document.querySelectorAll(".product");
-
-    this.initializeProducts();
+    this.initProducts();
   }
 
-  initializeProducts() {
-    this.products.forEach((productItem) => {
-      new Product(productItem, this.cart);
+  initProducts() {
+    document.querySelectorAll(".product").forEach(product => {
+      new Product(product, this.cart);
     });
   }
 }
 
-new CompliteCart();
+document.addEventListener('DOMContentLoaded', () => {
+  new CompleteCart();
+});
