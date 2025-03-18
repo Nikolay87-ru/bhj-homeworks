@@ -44,6 +44,7 @@ class CreateCart {
     this.items = {};
     this.cartContainer = document.querySelector(".cart__products");
     this.cartProduct = document.querySelector(".cart__product");
+    this.loadProductsFromLocalStorage();
   }
 
   addProduct(id, imageSrc, quantity) {
@@ -59,6 +60,7 @@ class CreateCart {
         count: quantity,
       };
     }
+    this.saveProductsToLocalStorage();
   }
 
   createCartProduct(id, imageSrc, quantity) {
@@ -89,6 +91,28 @@ class CreateCart {
     if (this.items[id]) {
       this.items[id].element.remove();
       delete this.items[id];
+    }
+  }
+
+  saveProductsToLocalStorage() {
+    const products = {};
+    this.items.forEach( id => {
+      products[id] = {
+        count: this.items[id].count,
+        imageSrc: this.items[id].imageSrc
+      };
+    });
+
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+
+  loadProductsFromLocalStorage() {
+    const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    if (savedProducts) {
+      savedProducts.forEach( id => {
+        const {count, imageSrc} = savedProducts[id];
+        this.addProduct(id, imageSrc, count);
+      }); 
     }
   }
 }
