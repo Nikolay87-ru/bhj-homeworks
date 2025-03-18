@@ -73,7 +73,9 @@ class CreateCart {
     const buttonRemove = document.createElement("div");
     buttonRemove.className = "product__remove";
     buttonRemove.innerHTML = "Удалить";
-    this.removeProduct(id);
+    buttonRemove.addEventListener("click", () => {
+      this.removeProduct(id); 
+    });
 
     const count = document.createElement("div");
     count.className = "cart__product-count";
@@ -84,12 +86,10 @@ class CreateCart {
   }
 
   removeProduct(id) {
-    this.removeButtone.addEventListener("click", () => {
-      if (this.items[id]) {
-        this.items[id].element.remove();
-        delete this.items[id];
-      }
-    });
+    if (this.items[id]) {
+      this.items[id].element.remove();
+      delete this.items[id];
+    }
   }
 }
 
