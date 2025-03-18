@@ -68,11 +68,15 @@ class CreateCart {
     img.className = "cart__product-image";
     img.src = imageSrc;
 
+    const buttonRemove = document.createElement("div");
+    buttonRemove.className = "product__remove";
+    buttonRemove.innerHTML = "Удалить";
+
     const count = document.createElement("div");
     count.className = "cart__product-count";
     count.textContent = quantity;
 
-    cartProduct.append(img, count);
+    cartProduct.append(img, buttonRemove, count);
     return cartProduct;
   }
 }
