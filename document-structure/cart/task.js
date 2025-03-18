@@ -6,6 +6,7 @@ class Product {
     this.productQuantity = productItem.querySelector(".product__quantity-value");
     this.productAddToCart = productItem.querySelector(".product__add");
     this.image = productItem.querySelector(".product__image").src;
+
     this.value = 1;
     this.id = productItem.dataset.id;
     this.cart = cart;
@@ -42,6 +43,7 @@ class CreateCart {
   constructor() {
     this.items = {};
     this.cartContainer = document.querySelector(".cart__products");
+    this.cartTitle = document.querySelector(".cart__title");
     this.loadFromLocalStorage();  
   }
 
@@ -54,6 +56,13 @@ class CreateCart {
       this.cartContainer.append(cartProduct);
       this.items[id] = { element: cartProduct, count: quantity, imageSrc };
     }
+
+    if (this.items.length !== 0) {
+      this.cartTitle.classList.toggle("cart__title_active");
+    } else {
+      this.cartTitle.classList.remove("cart__title_active");
+    }
+
     this.saveToLocalStorage();
   }
 
