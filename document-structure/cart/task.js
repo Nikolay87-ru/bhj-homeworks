@@ -3,7 +3,7 @@ class Product {
     this.product = productItem;
     this.incButton = productItem.querySelector(".product__quantity-control_inc");
     this.decButton = productItem.querySelector(".product__quantity-control_dec");
-    this.removeButtone = productItem.querySelector(".product__remove");
+    this.removeButton = productItem.querySelector(".product__remove");
     this.productQuantity = productItem.querySelector(".product__quantity-value");
     this.productAddToCart = productItem.querySelector(".product__add");
     this.image = productItem.querySelector(".product__image").src;
@@ -41,7 +41,7 @@ class Product {
 
 class CreateCart {
   constructor() {
-    this.items = {};
+    this.items = [];
     this.cartContainer = document.querySelector(".cart__products");
     this.cartProduct = document.querySelector(".cart__product");
     this.loadProductsFromLocalStorage();
@@ -95,7 +95,7 @@ class CreateCart {
   }
 
   saveProductsToLocalStorage() {
-    const products = {};
+    const products = [];
     this.items.forEach( id => {
       products[id] = {
         count: this.items[id].count,
