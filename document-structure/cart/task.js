@@ -3,6 +3,7 @@ class Product {
     this.product = productItem;
     this.incButton = productItem.querySelector(".product__quantity-control_inc");
     this.decButton = productItem.querySelector(".product__quantity-control_dec");
+    this.removeButtone = productItem.querySelector(".product__remove");
     this.productQuantity = productItem.querySelector(".product__quantity-value");
     this.productAddToCart = productItem.querySelector(".product__add");
     this.image = productItem.querySelector(".product__image").src;
@@ -42,6 +43,7 @@ class CreateCart {
   constructor() {
     this.items = {};
     this.cartContainer = document.querySelector(".cart__products");
+    this.cartProduct = document.querySelector(".cart__product");
   }
 
   addProduct(id, imageSrc, quantity) {
@@ -71,6 +73,7 @@ class CreateCart {
     const buttonRemove = document.createElement("div");
     buttonRemove.className = "product__remove";
     buttonRemove.innerHTML = "Удалить";
+    this.removeProduct(id);
 
     const count = document.createElement("div");
     count.className = "cart__product-count";
@@ -78,6 +81,15 @@ class CreateCart {
 
     cartProduct.append(img, buttonRemove, count);
     return cartProduct;
+  }
+
+  removeProduct(id) {
+    this.removeButtone.addEventListener("click", () => {
+      if (this.items[id]) {
+        this.items[id].element.remove();
+        delete this.items[id];
+      }
+    });
   }
 }
 
