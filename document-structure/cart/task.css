@@ -30,7 +30,7 @@ body {
   right: 0;
   border: 2px solid green;
   border-radius: 50%;
-  padding: 2px 8px;
+  padding: 2px 7px;
 }
 
 .cart__product-image {
@@ -91,7 +91,7 @@ body {
 .product__add,
 .product__remove {
   background: green;
-  padding: 10px 20px;
+  padding: 10px 30px;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
