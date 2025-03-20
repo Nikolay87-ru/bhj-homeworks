@@ -6,7 +6,7 @@ function getData() {
     "GET",
     "https://students.netoservices.ru/nestjs-backend/slow-get-courses"
   );
-  
+
   xhr.addEventListener("readystatechange", () => {
     if (xhr.readyState === xhr.DONE) {
       loader.classList.remove("loader_active");
@@ -14,22 +14,24 @@ function getData() {
       createData(data.response.Valute);
     }
   });
-  
+
   function createData(valuteData) {
-    itemsContainer.innerHTML = "";
+    itemsContainer.innerHTML = ""; 
 
     for (const currencyCode in valuteData) {
       const currency = valuteData[currencyCode];
+      
+      const item = document.createElement("div");
+      item.classList.add("item");
+
+      item.innerHTML = `
+        <div class="item__code">${currency.CharCode}</div>
+        <div class="item__value">${currency.Value}</div>
+        <div class="item__currency">${currency.Name}</div>
+      `;
+
+      itemsContainer.append(item);
     }
-
-    const item = document.querySelector(".item");
-    item.innerHTML = `
-      <div class="item__code">${currency.CharCode}</div>
-      <div class="item__value">${currency.Value}</div>
-      <div class="item__currency">${currency.Name}</div>
-    `;
-
-    itemsContainer.append(item);
   }
 
   xhr.send();
