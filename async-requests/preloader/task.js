@@ -27,7 +27,7 @@ function getData() {
       item.innerHTML = `
         <div class="item__code">${currency.CharCode}</div>
         <div class="item__value">${currency.Value}</div>
-        <div class="item__currency">${currency.Name}</div>
+        <div class="item__currency">руб.</div>
       `;
 
       itemsContainer.append(item);
