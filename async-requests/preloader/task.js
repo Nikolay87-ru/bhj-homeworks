@@ -1,4 +1,4 @@
-function f1() {
+function getData() {
   const loader = document.querySelector(".loader");
   const xhr = new XMLHttpRequest();
   xhr.open(
@@ -9,17 +9,26 @@ function f1() {
   xhr.addEventListener("readystatechange", () => {
     if (xhr.readyState === xhr.DONE) {
       loader.classList.remove("loader_active");
+      createData();
     }
   });
   
-  // xhr.onload = function() {
-  //   console.log(xhr.status);
-  //   console.log(xhr.response);
-  //   const data = JSON.parse(xhr.response);
-  //   console.log(data);
-  // }
-  
+  function createData() {
+    getValues();
+
+    const item = document.querySelector(".item");
+    item.innerHTML = `
+      <div class="item__code">${code}</div>
+      <div class="item__value">${value}</div>
+      <div class="item__currency">${currency}</div>
+    `;
+  }
+
+  const getValues = () => {
+
+  }
+
   xhr.send();
 }
 
-f1();
+getData();
