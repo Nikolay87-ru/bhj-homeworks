@@ -16,11 +16,11 @@ function getData() {
   });
 
   function createData(valuteData) {
-    itemsContainer.innerHTML = ""; 
+    itemsContainer.innerHTML = "";
 
     for (const currencyCode in valuteData) {
       const currency = valuteData[currencyCode];
-      
+
       const item = document.createElement("div");
       item.classList.add("item");
 
@@ -32,6 +32,25 @@ function getData() {
 
       itemsContainer.append(item);
     }
+  }
+
+  function saveDataToLocalStorage() {
+    const data = {};
+    document.querySelectorAll(".items .item").forEach((item) => {
+      const codeText = item.querySelector(".item__code").textContent;
+      const valueText = item.querySelector(".item__value").textContent;
+      const currencyText = item.querySelector(".item__currency").textContent;
+      data.push({ code: codeText, value: valueText, currency: currencyText });
+    });
+
+    localStorage.setItem("data", JSON.stringify(data));
+  }
+
+  function loadDataFromLocalStorage() {
+    const savedData = JSON.parse(localStorage.getItem("data")) || [];
+    savedData.forEach((data) => {
+      createData(data.text);
+    });
   }
 
   xhr.send();
