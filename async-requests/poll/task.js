@@ -4,32 +4,28 @@ function getPoll() {
 
   xhr.addEventListener("readystatechange", () => {
     if (xhr.readyState === xhr.DONE) {
-      createPoll();
+      const dataPool = JSON.parse(xhr.response);
+      createPoll(dataPool.data);
     }
   });
 
   xhr.send();
 }
 
-function createPoll() {
+function createPoll(data) {
   const pollTitle = document.querySelector(".poll__title");
-  pollTitle.innerHTML = `Как вы относитесь к собакам?`;
+  pollTitle.innerHTML = `${data.title}`;
 
   const pollAnswers = document.getElementById("poll__answers");
-  pollAnswers.innerHTML = `
-    <button class="poll__answer">
-      Хорошо
-    </button>
-    <button class="poll__answer">
-      Отлично
-    </button>
-    <button class="poll__answer">
-      Я люблю собак
-    </button>
-    <button class="poll__answer">
-      Кто тут?
-    </button>
-    `;
+
+  for (const answer in data.answers) {
+    const answers = data.answers[answer];
+
+    const item = document.createElement("button");
+    item.classList.add("poll__answer");
+    pollAnswers.append(item);
+    pollAnswers.innerHTML = `${answers}`;
+  }
 }
 
 getPoll();
