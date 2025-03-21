@@ -14,19 +14,17 @@ function getPoll() {
 
 function createPoll(data) {
   const pollTitle = document.querySelector(".poll__title");
-  pollTitle.innerHTML = `${data.title}`;
+  pollTitle.textContent = data.title;
 
   const pollAnswers = document.getElementById("poll__answers");
-  pollAnswers.innerHTML = '';
+  pollAnswers.innerHTML = "";
 
-  for (const answer of data.answers) {
-    const answers = data.answers[answer];
-
+  data.answers.forEach((answer) => {
     const button = document.createElement("button");
-    button.className = 'poll__answer';
+    button.className = "poll__answer";
     button.textContent = answer;
     pollAnswers.append(button);
-  }
+  });
 }
 
 getPoll();
