@@ -1,6 +1,6 @@
 function getData() {
   const loader = document.querySelector(".loader");
-  const currencyCache = 'currencyCache';
+  const currencyCache = "currencyCache";
 
   const cache = localStorage.getItem(currencyCache);
   if (cache) {
