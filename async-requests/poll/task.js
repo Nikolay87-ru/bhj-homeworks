@@ -9,6 +9,7 @@ function getPoll() {
     }
   });
 
+  initAnswerSelecting();
   xhr.send();
 }
 
@@ -25,6 +26,34 @@ function createPoll(data) {
     button.textContent = answer;
     pollAnswers.append(button);
   });
+}
+
+function initAnswerSelecting() {
+  answerButtons = document.querySelectorAll(".poll__answer");
+  const modal = document.createElement("modal");
+  modal.className = "modal";
+  modal.innerHTML = `<p>Спасибо, ваш голос засчитан!</p>`;
+
+  const buttonClose = modal.createElement("button");
+  buttonClose.className = "close-btn";
+  buttonClose.textContent = `Закрыть`;
+
+  const openMessage = () => {
+    modal.classList.add("modal_active");
+    overlay.classList.add("overlay_active");
+  };
+
+  const closeMessage = () => {
+    modal.classList.remove("modal_active");
+    overlay.classList.remove("overlay_active");
+  };
+
+  answerButtons.forEach((button) => {
+    button.addEventListener("click", openMessage);
+  });
+
+  buttonClose.addEventListener("click", closeMessage);
+  overlay.addEventListener("click", closeMessage);
 }
 
 getPoll();
