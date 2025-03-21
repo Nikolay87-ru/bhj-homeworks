@@ -17,14 +17,15 @@ function createPoll(data) {
   pollTitle.innerHTML = `${data.title}`;
 
   const pollAnswers = document.getElementById("poll__answers");
+  pollAnswers.innerHTML = '';
 
-  for (const answer in data.answers) {
+  for (const answer of data.answers) {
     const answers = data.answers[answer];
 
-    const item = document.createElement("button");
-    item.classList.add("poll__answer");
-    pollAnswers.append(item);
-    pollAnswers.innerHTML = `${answers}`;
+    const button = document.createElement("button");
+    button.className = 'poll__answer';
+    button.textContent = answer;
+    pollAnswers.append(button);
   }
 }
 
