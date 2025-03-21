@@ -4,7 +4,7 @@ function getData() {
 
   const cache = localStorage.getItem(currencyCache);
   if (cache) {
-    render(JSON.parse(cache));
+    createData(JSON.parse(cache));
   }
 
   const xhr = new XMLHttpRequest();
@@ -15,13 +15,11 @@ function getData() {
 
   xhr.addEventListener("readystatechange", () => {
     if (xhr.readyState === xhr.DONE) {
-      loader.classList.remove("loader_active");
-      
-      // if (window.localStorage === null) {
-      //   const data = JSON.parse(xhr.response);
-      //   createData(data.response.Valute);
-      // } 
+      const data = JSON.parse(xhr.response).response.Valute;
+      localStorage.setItem(currencyCache, JSON.stringify(data));
+      createData(data);
     }
+    loader.classList.remove("loader_active");
   });
 
   xhr.send();
