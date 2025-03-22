@@ -19,6 +19,8 @@ function createPoll(data) {
   const pollAnswers = document.getElementById("poll__answers");
   pollAnswers.innerHTML = "";
 
+  const pollId = data.id;
+
   data.answers.forEach((answer) => {
     const button = document.createElement("button");
     button.className = "poll__answer";
@@ -26,21 +28,32 @@ function createPoll(data) {
     pollAnswers.append(button);
   });
 
+  button.addEventListener("click", () => {
+    sendVote(pollId, index);
+  });
+
   initModalMessage();
 }
 
+function sendVote(pollId, index) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/poll");
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send("vote=1&answer=2");
+}
+
 function initModalMessage() {
-  let overlay = document.querySelector('.overlay');
+  let overlay = document.querySelector(".overlay");
   if (!overlay) {
-    overlay = document.createElement('div');
-    overlay.className = 'overlay';
+    overlay = document.createElement("div");
+    overlay.className = "overlay";
     document.body.append(overlay);
   }
 
-  let modal = document.querySelector('.modal');
+  let modal = document.querySelector(".modal");
   if (!modal) {
-    modal = document.createElement('div');
-    modal.className = 'modal';
+    modal = document.createElement("div");
+    modal.className = "modal";
     modal.innerHTML = `<p>Спасибо, ваш голос засчитан!</p>`;
     document.body.append(modal);
 
@@ -66,7 +79,14 @@ function initModalMessage() {
   function closeMessage() {
     modal.classList.remove("modal_active");
     overlay.classList.remove("overlay_active");
+
+    const pollAnswers = document.getElementById("poll__answers");
+    pollAnswers.innerHTML = "";
   }
 }
+
+// function showPollResults() {
+
+// }
 
 getPoll();
