@@ -6,9 +6,9 @@ function getPoll() {
     if (xhr.readyState === xhr.DONE) {
       const dataPool = JSON.parse(xhr.response);
       createPoll({
-        id: dataPool.id,       
+        id: dataPool.id,
         title: dataPool.data.title,
-        answers: dataPool.data.answers
+        answers: dataPool.data.answers,
       });
     }
   });
@@ -16,16 +16,14 @@ function getPoll() {
   xhr.send();
 }
 
-function createPoll(data) {
+function createPoll(pollData) {
   const pollTitle = document.querySelector(".poll__title");
-  pollTitle.textContent = data.title;
+  pollTitle.textContent = pollData.title;
 
   const pollAnswers = document.getElementById("poll__answers");
   pollAnswers.innerHTML = "";
 
-  const pollId = data.id;
-
-  data.answers.forEach((answer, index) => {
+  pollData.answers.forEach((answer, index) => {
     const button = document.createElement("button");
     button.className = "poll__answer";
     button.textContent = answer;
@@ -54,7 +52,7 @@ function sendVote(pollId, index) {
 }
 
 function showPollResults(stats) {
-  const pollAnswers = document.querySelector(".poll__answers");
+  const pollAnswers = document.getElementById("poll__answers");
   pollAnswers.innerHTML = "";
 
   stats.forEach((stat) => {
