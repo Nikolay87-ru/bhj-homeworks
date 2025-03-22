@@ -21,15 +21,16 @@ function createPoll(data) {
 
   const pollId = data.id;
 
-  data.answers.forEach((answer) => {
+  data.answers.forEach((answer, index) => {
     const button = document.createElement("button");
     button.className = "poll__answer";
     button.textContent = answer;
-    pollAnswers.append(button);
-  });
 
-  button.addEventListener("click", () => {
-    sendVote(pollId, index);
+    button.addEventListener("click", () => {
+      sendVote(pollId, index);
+    });
+
+    pollAnswers.append(button);
   });
 
   initModalMessage();
@@ -39,7 +40,17 @@ function sendVote(pollId, index) {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/poll");
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.send("vote=1&answer=2");
+
+  xhr.addEventListener("readystatechange", () => {
+    const response = JSON.parse(xhr.response);
+    showPollResults(response.stat);
+  });
+
+  xhr.send(`vote=${pollId}&answer=${index}`);
+}
+
+function showPollResults(stats) {
+
 }
 
 function initModalMessage() {
@@ -84,9 +95,5 @@ function initModalMessage() {
     pollAnswers.innerHTML = "";
   }
 }
-
-// function showPollResults() {
-
-// }
 
 getPoll();
