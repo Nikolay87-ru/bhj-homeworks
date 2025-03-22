@@ -55,11 +55,18 @@ function showPollResults(stats) {
   const pollAnswers = document.getElementById("poll__answers");
   pollAnswers.innerHTML = "";
 
+  const totalVotes = stats.reduce((total, stat) => total + stat.votes, 0);
+
   stats.forEach((stat) => {
     const element = document.createElement("div");
     element.className = "poll__result";
-    element.textContent = `${stat.answer}: ${stat.votes}%`;
+
+    const percentage =
+      totalVotes > 0 ? ((stat.votes / totalVotes) * 100).toFixed(2) : 0;
+
+    element.textContent = `${stat.answer}: ${percentage}%`;
     pollAnswers.append(element);
+    pollAnswers.classList.add("poll__answers_active");
   });
 }
 
