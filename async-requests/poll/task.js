@@ -41,7 +41,7 @@ function sendVote(pollId, index) {
   xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/poll");
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-  xhr.addEventListener("readystatechange", () => {
+  xhr.addEventListener("load", () => {
     const response = JSON.parse(xhr.response);
     showPollResults(response.stat);
   });
@@ -50,7 +50,15 @@ function sendVote(pollId, index) {
 }
 
 function showPollResults(stats) {
+  const pollAnswers = document.querySelector(".poll__answers");
+  pollAnswers.innerHTML = "";
 
+  stats.forEach((stat) => {
+    const element = document.createElement("div");
+    element.className = "pool__result";
+    element.textContent = `${stat.answer}: ${stat.votes}%`;
+    pollAnswers.append(element);
+  });
 }
 
 function initModalMessage() {
