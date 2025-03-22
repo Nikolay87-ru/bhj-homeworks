@@ -5,7 +5,11 @@ function getPoll() {
   xhr.addEventListener("readystatechange", () => {
     if (xhr.readyState === xhr.DONE) {
       const dataPool = JSON.parse(xhr.response);
-      createPoll(dataPool.data);
+      createPoll({
+        id: dataPool.id,       
+        title: dataPool.data.title,
+        answers: dataPool.data.answers
+      });
     }
   });
 
@@ -27,7 +31,7 @@ function createPoll(data) {
     button.textContent = answer;
 
     button.addEventListener("click", () => {
-      sendVote(pollId, index);
+      sendVote(pollData.id, index);
     });
 
     pollAnswers.append(button);
@@ -55,7 +59,7 @@ function showPollResults(stats) {
 
   stats.forEach((stat) => {
     const element = document.createElement("div");
-    element.className = "pool__result";
+    element.className = "poll__result";
     element.textContent = `${stat.answer}: ${stat.votes}%`;
     pollAnswers.append(element);
   });
@@ -98,9 +102,6 @@ function initModalMessage() {
   function closeMessage() {
     modal.classList.remove("modal_active");
     overlay.classList.remove("overlay_active");
-
-    const pollAnswers = document.getElementById("poll__answers");
-    pollAnswers.innerHTML = "";
   }
 }
 

@@ -47,3 +47,10 @@ body {
 .overlay_active {
   display: block;
 }
+
+.poll__result {
+  margin: 10px 0;
+  padding: 5px;
+  background: #84c7f3;
+  border-radius: 5px;
+}
