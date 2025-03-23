@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 progress {
   overflow: hidden;
   display: block;
@@ -5,7 +9,6 @@ progress {
   border: none;
   border-radius: 16px;
   height: 20px;
-
 }
 
 form {
@@ -13,24 +16,26 @@ form {
 }
 
 label {
-    display: block;
-    margin-bottom: 10px;
+  display: block;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
 }
 
 input {
   position: absolute;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
 }
 
 button {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 #file:focus ~ label {
-    border: 1px solid #e2e2e2;
+  border-color: #e2dcdc;
 }
 
 .card {
@@ -58,7 +63,8 @@ button {
   display: inline-block;
 }
 
-.input__wrapper-button {
+.input__wrapper-button,
+.send-btn {
   font-family: Golos, Arial, sans-serif;
   font-size: 14px;
   color: #fff;
@@ -66,8 +72,13 @@ button {
   border: 1px solid transparent;
   border-radius: 2px;
   box-sizing: border-box;
+  /* vertical-align: top; */
   cursor: pointer;
   padding: 8px 12px;
+}
+
+.send-btn {
+  width: 100px; 
 }
 
 .input__wrapper-button:hover {
