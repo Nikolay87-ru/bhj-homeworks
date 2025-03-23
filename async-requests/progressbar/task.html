@@ -1,18 +1,20 @@
 <!doctype html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Progressbar</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="task.css">
 </head>
+
 <body>
     <header class="header">
         <div class="logo__container">
-          <a href="https://netology.ru/" class="logo__link"></a>
+            <a href="https://netology.ru/" class="logo__link"></a>
         </div>
         <h1 class="header__title">
             Домашнее задание к занятию 3.1 «Асинхронные запросы». Загрузка больших файлов.
@@ -20,7 +22,10 @@
     </header>
     <main class="content">
         <div class="card">
-            <progress value="0.0" id="progress"></progress>
+            <div class="progress-bar">
+                <div id="progressCounter" class="upload__counter">100%</div>
+                <progress value="0.0" id="progress"></progress>
+            </div>
             <form action="https://students.netoservices.ru/nestjs-backend/upload" id="form">
                 <input type="file" name="file" id="file" required>
                 <label for="file">
@@ -35,4 +40,5 @@
     </main>
 
 </body>
+
 </html>

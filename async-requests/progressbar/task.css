@@ -1,5 +1,11 @@
 progress {
-    margin-bottom: 10px;
+  overflow: hidden;
+  display: block;
+  width: 0;
+  border: none;
+  border-radius: 16px;
+  height: 20px;
+
 }
 
 form {
@@ -29,6 +35,23 @@ button {
 
 .card {
   width: 600px;
+}
+
+.progress-bar {
+  position: relative;
+  background-color: #30d6ff;
+  border: 1px solid #06f;
+  border-radius: 16px;
+  width: 14rem;
+  margin-bottom: 10px;
+}
+
+.upload__counter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 .input__wrapper {
