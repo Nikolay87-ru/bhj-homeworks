@@ -3,12 +3,12 @@
 }
 
 progress {
-  overflow: hidden;
   display: block;
-  width: 0;
+  width: 0%; 
+  height: 20px;
   border: none;
   border-radius: 16px;
-  height: 20px;
+  transition: width 0.3s ease-out; 
 }
 
 form {
@@ -20,11 +20,6 @@ label {
   margin-bottom: 10px;
   border: 1px solid transparent;
   box-sizing: border-box;
-}
-
-progress {
-  width: 100%;
-  transition: width 0.3s;
 }
 
 input {
@@ -49,11 +44,12 @@ button {
 
 .progress-bar {
   position: relative;
-  background-color: #30d6ff;
+  background-color: #f0f0f0; 
   border: 1px solid #06f;
   border-radius: 16px;
   width: 14rem;
   margin-bottom: 10px;
+  overflow: hidden; 
 }
 
 .upload__counter {
