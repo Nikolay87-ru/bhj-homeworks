@@ -1,9 +1,7 @@
 function showProgressBar() {
   const form = document.getElementById("form");
-  const file = document.getElementById("file");
   const progress = document.getElementById("progress");
   const progressText = document.getElementById("progressCounter");
-  // progress.value = 0.7;
 
   form.addEventListener("submit", uploadFile);
 
@@ -11,6 +9,8 @@ function showProgressBar() {
     upload.preventDefault();
 
     const xhr = new XMLHttpRequest();
+    const formData = new FormData(form);
+    
     xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/upload");
 
     xhr.upload.addEventListener("progress", e => {
