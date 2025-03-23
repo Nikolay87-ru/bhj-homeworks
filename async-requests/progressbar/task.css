@@ -2,13 +2,42 @@
   box-sizing: border-box;
 }
 
+:root {
+  --progress-filled: rgb(77, 146, 248);
+  --progress-empty: #f3f3f3;
+  --progress-radius: 16px;
+}
+
+progress::-webkit-progress-value {
+  background: var(--progress-filled);
+  border-radius: var(--progress-radius);
+}
+
+progress::-webkit-progress-bar {
+  background: var(--progress-empty);
+  border-radius: var(--progress-radius);
+}
+
+
+progress::-moz-progress-bar {
+  background: var(--progress-filled);
+  border-radius: var(--progress-radius);
+}
+
 progress {
-  display: block;
-  width: 0%; 
+  width: 0%;
   height: 20px;
   border: none;
+  transition: width 0.3s ease-out;
+}
+
+.progress-bar {
+  position: relative;
+  background-color: #f0f0f0;
   border-radius: 16px;
-  transition: width 0.3s ease-out; 
+  width: 14rem;
+  margin-bottom: 10px;
+  overflow: hidden;
 }
 
 form {
@@ -42,16 +71,6 @@ button {
   width: 600px;
 }
 
-.progress-bar {
-  position: relative;
-  background-color: #f0f0f0; 
-  border: 1px solid #06f;
-  border-radius: 16px;
-  width: 14rem;
-  margin-bottom: 10px;
-  overflow: hidden; 
-}
-
 .upload__counter {
   position: absolute;
   left: 50%;
@@ -71,7 +90,8 @@ button {
   color: #fff;
   background-color: #06f;
   border: 1px solid transparent;
-  border-radius: 2px;
+  vertical-align: bottom;
+  border-radius: 20px;
   box-sizing: border-box;
   cursor: pointer;
   padding: 8px 12px;
@@ -81,6 +101,7 @@ button {
   width: 100px; 
 }
 
-.input__wrapper-button:hover {
+.input__wrapper-button:hover,
+.send-btn:hover {
   background-color: #005ce6;
 }

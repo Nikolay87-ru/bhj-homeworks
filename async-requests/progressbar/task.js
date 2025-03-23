@@ -1,7 +1,6 @@
 function showProgressBar() {
   const form = document.getElementById("form");
   const progress = document.getElementById("progress");
-  // const progressBar = element.value
   const progressText = document.getElementById("progressCounter");
 
   form.addEventListener("submit", uploadFile);
