@@ -14,9 +14,14 @@ body {
 }
 
 .loader {
-  width: 100px;
+  width: 200px;
   display: none;
+  transform: translateY(-30%);
 }
 .loader_active {
   display: block;
+}
+
+.item {
+  margin-left: 10px;
 }
