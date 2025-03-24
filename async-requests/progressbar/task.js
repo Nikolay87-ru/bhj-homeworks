@@ -3,6 +3,7 @@ function showProgressBar() {
   const progress = document.getElementById("progress");
   const progressText = document.getElementById("progressCounter");
   const progressBar = document.querySelector(".progress-bar");
+  const divLoadIsComplite = document.createElement("div");
 
   form.addEventListener("submit", uploadFile);
 
@@ -16,7 +17,6 @@ function showProgressBar() {
     progress.value = 0;
     progressText.textContent = "0%";
 
-    const divLoadIsComplite = document.createElement("div");
     divLoadIsComplite.className = "message";
     divLoadIsComplite.innerHTML = ``;
 
