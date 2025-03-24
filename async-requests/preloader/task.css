@@ -3,12 +3,14 @@ body {
 }
 .item {
   display: flex;
+  margin-left: 10px;
 }
 
 .item__code {
   margin-right: 5px;
   font-weight: bold;
 }
+
 .item__value {
   margin-right: 5px;
 }
@@ -18,10 +20,7 @@ body {
   display: none;
   transform: translateY(-30%);
 }
+
 .loader_active {
   display: block;
-}
-
-.item {
-  margin-left: 10px;
 }
