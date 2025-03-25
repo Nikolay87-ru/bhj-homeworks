@@ -2,16 +2,32 @@ function saveTextEditor() {
   const userText = document.getElementById('editor');
 
   document.addEventListener('DOMContentLoaded', () => {
-    userText.value = localStorage.getItem('savedText') || '';
+    loadFromLocalStorage();
   });
 
   window.addEventListener('beforeunload', () => {
-    localStorage.setItem('savedText', userText.value);
+    saveToLocalStorage();
   });
+
+  const loadFromLocalStorage = () => {
+    userText.value = localStorage.getItem('savedText') || '';
+  }
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem('savedText', userText.value);
+  }
 }
 
 function removeText() {
+  const removeButton = document.querySelector('.remove__text');
+  const userText = document.getElementById('editor');
 
+  removeButton.addEventListener('click', (event) => {
+    if (event.currentTarget) {
+      userText.value = '';
+      return;
+    }
+  })
 }
 
 removeText();
