@@ -8,3 +8,16 @@ textarea {
   border: 1px solid #e2e2e2;
   box-sizing: border-box;
 }
+
+.remove__text {
+  background: rgb(6, 2, 245);
+  padding: 10px 20px;
+  font-size: medium;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
