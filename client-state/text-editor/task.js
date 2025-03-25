@@ -1,33 +1,33 @@
 function saveTextEditor() {
-  const userText = document.getElementById('editor');
+  const userText = document.getElementById("editor");
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     loadFromLocalStorage();
   });
 
-  window.addEventListener('beforeunload', () => {
+  window.addEventListener("beforeunload", () => {
     saveToLocalStorage();
   });
 
   const loadFromLocalStorage = () => {
-    userText.value = localStorage.getItem('savedText') || '';
-  }
+    userText.value = localStorage.getItem("savedText") || "";
+  };
 
   const saveToLocalStorage = () => {
-    localStorage.setItem('savedText', userText.value);
-  }
+    localStorage.setItem("savedText", userText.value);
+  };
 }
 
 function removeText() {
-  const removeButton = document.querySelector('.remove__text');
-  const userText = document.getElementById('editor');
+  const removeButton = document.querySelector(".remove__text-btn");
+  const userText = document.getElementById("editor");
 
-  removeButton.addEventListener('click', (event) => {
+  removeButton.addEventListener("click", (event) => {
     if (event.currentTarget) {
-      userText.value = '';
+      userText.value = "";
       return;
     }
-  })
+  });
 }
 
 removeText();
