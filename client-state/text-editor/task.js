@@ -22,11 +22,9 @@ function removeText() {
   const removeButton = document.querySelector(".remove__text-btn");
   const userText = document.getElementById("editor");
 
-  removeButton.addEventListener("click", (event) => {
-    if (event.currentTarget) {
-      userText.value = "";
-      return;
-    }
+  removeButton.addEventListener("click", () => {
+    userText.value = "";
+    localStorage.removeItem("savedText"); 
   });
 }
 
