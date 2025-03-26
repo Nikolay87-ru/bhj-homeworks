@@ -13,6 +13,7 @@ function getAuthFormValues() {
 function sendToServer(username, password) {
   const signin = document.querySelector('.signin');
   const welcome = document.querySelector('.welcome');
+  const userID = document.getElementById('user_id');
 
   sendRequest({
     method: 'POST',
@@ -21,6 +22,7 @@ function sendToServer(username, password) {
     onSuccess: () => {
       signin.classList.remove('signin_active');
       welcome.classList.add('welcome_active');
+      userID.innerText = username;
     },
     onError: (error) => showMessage(error, true)
 });
