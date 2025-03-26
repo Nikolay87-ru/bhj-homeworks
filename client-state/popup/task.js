@@ -1,10 +1,17 @@
+function getCookie(name) {
+  let cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+  return cookie?.split('=')[1] || null;
+}
+
 function showModal() {
   const modal = document.getElementById("subscribe-modal");
   const closeButton = document.querySelector(".modal__close_times");
 
-  document.addEventListener("DOMContentLoaded", () => {
-    modal.classList.add("modal_active");
-  });
+  if(!getCookie('modalClosed')) {
+    document.addEventListener("DOMContentLoaded", () => {
+        modal.classList.add("modal_active");
+    });
+}
 
   closeButton.addEventListener("click", () => {
     modal.classList.remove("modal_active");
