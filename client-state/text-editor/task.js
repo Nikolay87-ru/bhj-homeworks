@@ -19,7 +19,7 @@ function saveTextEditor() {
 }
 
 function removeText() {
-  const removeButton = document.querySelector(".remove__text-btn");
+  const removeButton = document.getElementById("remove__text-btn");
   const userText = document.getElementById("editor");
 
   removeButton.addEventListener("click", () => {
