@@ -3,30 +3,41 @@ function getAuthFormValues() {
   signinForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const username = document.querySelector('input[name="login"]').value;
-    const password = document.querySelector('input[name="password"]').value;
+    const formData = new FormData(signinForm);
+    const login = formData.get('login');
+    const password = formData.get('password');
 
-    sendToServer(username, password);
+    sendToServer(login, password);
   });
 }
 
-function sendToServer(username, password) {
-  const signin = document.querySelector('.signin');
-  const welcome = document.querySelector('.welcome');
-  const userID = document.getElementById('user_id');
+function sendToServer(login, password) {
+  const data = `login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`;
 
   sendRequest({
     method: 'POST',
     url: 'https://students.netoservices.ru/nestjs-backend/auth',
-    data: `login=${username}&password=${password}`,
+    data: data,
     onSuccess: () => {
-      signin.classList.remove('signin_active');
-      welcome.classList.add('welcome_active');
-      userID.innerText = username;
+      showWelcomeMessage(response.user_id);
     },
     onError: (error) => showMessage(error, true)
 });
 }
+
+function showWelcomeMessage(userId) {
+  const signin = document.querySelector('.signin');
+  const welcome = document.querySelector('.welcome');
+  const userIDSpan = document.getElementById('user_id');
+  
+  signin.classList.remove('signin_active');
+  welcome.classList.add('welcome_active');
+  userIDSpan.textContent = userId;
+}
+
+// function showMessage(message) {
+//   alert(message);
+// }
 
 function sendRequest({ method, url, data, onSuccess, onError }) {
   const xhr = new XMLHttpRequest();
