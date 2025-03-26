@@ -1,6 +1,6 @@
 function getCookie(name) {
-  let cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
-  return cookie?.split('=')[1] || null;
+  let cookie = document.cookie.split("; ").find(row => row.startsWith(name + "="));
+  return cookie?.split("=")[1] || null;
 }
 
 function setCookie(name, value, days) {
