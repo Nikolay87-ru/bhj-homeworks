@@ -1,7 +1,8 @@
 function checkAuthorization() {
   document.addEventListener("DOMContentLoaded", () => {
-    if (response.user_id) {
-      showWelcomeMessage(response.user_id);
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
+        showWelcomeMessage(userId);
     }
 
     setupModal();
@@ -32,12 +33,13 @@ function sendToServer(login, password) {
     data: data,
     onSuccess: (response) => {
       if (response.success) {
+        localStorage.setItem("user_id", response.user_id);
         showWelcomeMessage(response.user_id);
       } else {
         showMessage("Неверный логин/пароль");
       }
     },
-    onError: (error) => showWrongLoginMessage(error),
+    onError: (error) => showMessage(error),
   });
 }
 
@@ -51,7 +53,7 @@ function showWelcomeMessage(userId) {
   userIdSpan.textContent = userId;
 }
 
-function showWrongLoginMessage(message) {
+function showMessage(message) {
   const modal = document.getElementById("modal");
   const overlay = document.getElementById("overlay");
   const modalMessage = document.getElementById("modal-message");
@@ -59,34 +61,29 @@ function showWrongLoginMessage(message) {
   modalMessage.textContent = message;
   modal.classList.add("modal_active");
   overlay.classList.add("overlay_active");
-
-  if (isError) {
-    modal.classList.add("modal_error");
-  }
 }
 
-function setupModal(message) {
-  const modal = document.getElementById("modal");
-  const overlay = document.getElementById("overlay");
-
-  if (!modal) {
+function setupModal() {
+  if (!document.getElementById("modal")) {
     const modal = document.createElement("div");
     modal.className = "modal";
     modal.id = "modal";
     modal.innerHTML = `
-          <p id="modal-message">${message}</p>
+          <p id="modal-message"></p>
           <button class="close-btn">Закрыть</button>
       `;
     document.body.append(modal);
   }
 
-  if (!overlay) {
+  if (!document.getElementById("overlay")) {
     const overlay = document.createElement("div");
     overlay.className = "overlay";
     overlay.id = "overlay";
     document.body.append(overlay);
   }
 
+  const modal = document.getElementById("modal");
+  const overlay = document.getElementById("overlay");
   const closeBtn = modal.querySelector(".close-btn");
 
   const closeModal = () => {
@@ -114,16 +111,10 @@ function sendRequest({ method, url, data, onSuccess, onError }) {
   xhr.addEventListener("error", () => onError?.("Ошибка сети"));
   xhr.addEventListener("abort", () => onError?.("Запрос прерван"));
 
-  if (method === "POST") {
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send(data);
-  } else {
-    xhr.send();
-  }
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(data);
 }
 
 checkAuthorization();
-
-setupModal();
 
 getLoginFormValues();
