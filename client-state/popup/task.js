@@ -8,7 +8,14 @@ function showModal() {
 
   closeButton.addEventListener("click", () => {
     modal.classList.remove("modal_active");
-  })
+
+    setCookie("modalClosed", "true", 30);
+  });
+
+  const setCookie = (name, value, days) => {
+    expirationDate = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)};expiration-date=${expirationDate};path=/`;
+  }
 }
 
 showModal();
