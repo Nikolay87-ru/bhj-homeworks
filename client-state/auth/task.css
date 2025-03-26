@@ -14,7 +14,8 @@
     box-sizing: border-box;
 }
 
-.btn {
+.btn,
+.close-btn {
   font-family: Golos, Arial, sans-serif;
   color: #fff;
   background-color: #06f;
