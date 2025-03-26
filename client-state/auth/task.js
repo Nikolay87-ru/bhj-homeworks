@@ -1,9 +1,9 @@
-function getAuthFormValues() {
-  const signinForm = document.getElementById('signin__form');
-  signinForm.addEventListener('submit', (event) => {
+function getLoginFormValues() {
+  const signInForm = document.getElementById('signin__form');
+  signInForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const formData = new FormData(signinForm);
+    const formData = new FormData(signInForm);
     const login = formData.get('login');
     const password = formData.get('password');
 
@@ -18,26 +18,71 @@ function sendToServer(login, password) {
     method: 'POST',
     url: 'https://students.netoservices.ru/nestjs-backend/auth',
     data: data,
-    onSuccess: () => {
-      showWelcomeMessage(response.user_id);
+    onSuccess: (response) => {
+      if (response.success) {
+        showWelcomeMessage(response.user_id);
+      } else {
+        showMessage('Неверный логин/пароль');
+      }
     },
-    onError: (error) => showMessage(error, true)
+    onError: (error) => showWrongLoginMessage(error, true)
 });
 }
 
 function showWelcomeMessage(userId) {
   const signin = document.querySelector('.signin');
   const welcome = document.querySelector('.welcome');
-  const userIDSpan = document.getElementById('user_id');
+  const userIdSpan = document.getElementById('user_id');
   
   signin.classList.remove('signin_active');
   welcome.classList.add('welcome_active');
-  userIDSpan.textContent = userId;
+  userIdSpan.textContent = userId;
 }
 
-// function showMessage(message) {
-//   alert(message);
-// }
+function showWrongLoginMessage(message, isError = false) {
+  const modal = document.getElementById('modal');
+  const overlay = document.getElementById('overlay');
+  const modalMessage = document.getElementById('modal-message');
+  
+  modalMessage.textContent = message;
+  modal.classList.add('modal_active');
+  overlay.classList.add('overlay_active');
+
+  if (isError) {
+      modal.classList.add('modal_error');
+  }
+}
+
+function setupModal(message) {
+  const modal = document.querySelector('.modal');
+  const overlay = document.querySelector('.overlay');
+
+  if (!modal) {
+      modal = document.createElement('div');
+      modal.className = 'modal';
+      modal.id = 'modal';
+      modal.innerHTML = `
+          <p id="modal-message">${message}</p>
+          <button class="close-btn">Закрыть</button>
+      `;
+      document.body.append(modal);
+  }
+
+  if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'overlay';
+      overlay.id = 'overlay';
+      document.body.append(overlay);
+  }
+
+  const closeModal = () => {
+      modal.classList.remove('modal_active', 'modal_error');
+      overlay.classList.remove('overlay_active');
+  };
+
+  modal.querySelector('.close-btn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+}
 
 function sendRequest({ method, url, data, onSuccess, onError }) {
   const xhr = new XMLHttpRequest();
@@ -63,4 +108,6 @@ function sendRequest({ method, url, data, onSuccess, onError }) {
   }
 }
 
-getAuthFormValues();
+setupModal();
+
+getLoginFormValues();
