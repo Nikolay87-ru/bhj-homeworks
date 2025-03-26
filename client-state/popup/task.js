@@ -3,6 +3,11 @@ function getCookie(name) {
   return cookie?.split('=')[1] || null;
 }
 
+function setCookie(name, value, days) {
+  expirationDate = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)};expiration-date=${expirationDate};path=/`;
+}
+
 function showModal() {
   const modal = document.getElementById("subscribe-modal");
   const closeButton = document.querySelector(".modal__close_times");
@@ -18,11 +23,6 @@ function showModal() {
 
     setCookie("modalClosed", "true", 30);
   });
-
-  const setCookie = (name, value, days) => {
-    expirationDate = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)};expiration-date=${expirationDate};path=/`;
-  }
 }
 
 showModal();
