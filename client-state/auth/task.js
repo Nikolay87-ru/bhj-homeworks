@@ -1,12 +1,21 @@
 function checkAuthorization() {
-  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById('modal');
+    const overlay = document.getElementById('overlay');
+    modal.classList.remove('modal_active');
+    overlay.classList.remove('overlay_active');
+
     const userId = localStorage.getItem('user_id');
+    const signin = document.getElementById('signin');
+    
+    signin.classList.remove('signin_active');
+    
     if (userId) {
         showWelcomeMessage(userId);
+    } else {
+        signin.classList.add('signin_active');
     }
-
+    
     setupModal();
-  });
 }
 
 function getLoginFormValues() {
@@ -59,40 +68,32 @@ function showMessage(message) {
   const modalMessage = document.getElementById("modal-message");
 
   modalMessage.textContent = message;
-  modal.classList.add("modal_active");
-  overlay.classList.add("overlay_active");
+  modal.style.display = 'block';
+  overlay.style.display = 'block';
+  
+  requestAnimationFrame(() => {
+      modal.classList.add('modal_active');
+      overlay.classList.add('overlay_active');
+  });
 }
 
 function setupModal() {
-  if (!document.getElementById("modal")) {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    modal.id = "modal";
-    modal.innerHTML = `
-          <p id="modal-message"></p>
-          <button class="close-btn">Закрыть</button>
-      `;
-    document.body.append(modal);
-  }
-
-  if (!document.getElementById("overlay")) {
-    const overlay = document.createElement("div");
-    overlay.className = "overlay";
-    overlay.id = "overlay";
-    document.body.append(overlay);
-  }
-
-  const modal = document.getElementById("modal");
-  const overlay = document.getElementById("overlay");
-  const closeBtn = modal.querySelector(".close-btn");
+  const modal = document.getElementById('modal');
+  const overlay = document.getElementById('overlay');
+  const closeBtn = modal.querySelector('.close-btn');
 
   const closeModal = () => {
-    modal.classList.remove("modal_active");
-    overlay.classList.remove("overlay_active");
-  };
+    modal.classList.remove('modal_active');
+    overlay.classList.remove('overlay_active');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+    }, 300);
+};
 
-  closeBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", closeModal);
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
 }
 
 function sendRequest({ method, url, data, onSuccess, onError }) {
