@@ -1,21 +1,14 @@
 function checkAuthorization() {
-    const modal = document.getElementById('modal');
-    const overlay = document.getElementById('overlay');
-    modal.classList.remove('modal_active');
-    overlay.classList.remove('overlay_active');
+  const userId = localStorage.getItem("user_id");
+  const signin = document.getElementById("signin");
 
-    const userId = localStorage.getItem('user_id');
-    const signin = document.getElementById('signin');
-    
-    signin.classList.remove('signin_active');
-    
-    if (userId) {
-        showWelcomeMessage(userId);
-    } else {
-        signin.classList.add('signin_active');
-    }
-    
-    setupModal();
+  signin.classList.remove("signin_active");
+
+  if (userId) {
+    showWelcomeMessage(userId);
+  } else {
+    signin.classList.add("signin_active");
+  }
 }
 
 function getLoginFormValues() {
@@ -45,10 +38,10 @@ function sendToServer(login, password) {
         localStorage.setItem("user_id", response.user_id);
         showWelcomeMessage(response.user_id);
       } else {
-        showMessage("Неверный логин/пароль");
+        showModalMessage("Неверный логин/пароль");
       }
     },
-    onError: (error) => showMessage(error),
+    onError: () => showModalMessage("Введите логин/пароль"),
   });
 }
 
@@ -62,38 +55,24 @@ function showWelcomeMessage(userId) {
   userIdSpan.textContent = userId;
 }
 
-function showMessage(message) {
+function showModalMessage(message) {
   const modal = document.getElementById("modal");
   const overlay = document.getElementById("overlay");
   const modalMessage = document.getElementById("modal-message");
+  const closeBtn = modal.querySelector(".close-btn");
 
   modalMessage.textContent = message;
-  modal.style.display = 'block';
-  overlay.style.display = 'block';
-  
-  requestAnimationFrame(() => {
-      modal.classList.add('modal_active');
-      overlay.classList.add('overlay_active');
-  });
-}
 
-function setupModal() {
-  const modal = document.getElementById('modal');
-  const overlay = document.getElementById('overlay');
-  const closeBtn = modal.querySelector('.close-btn');
+  modal.classList.add("modal_active");
+  overlay.classList.add("overlay_active");
 
   const closeModal = () => {
-    modal.classList.remove('modal_active');
-    overlay.classList.remove('overlay_active');
-    
-    setTimeout(() => {
-        modal.style.display = 'none';
-        overlay.style.display = 'none';
-    }, 300);
-};
+    modal.classList.remove("modal_active");
+    overlay.classList.remove("overlay_active");
+  };
 
-  closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', closeModal);
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
 }
 
 function sendRequest({ method, url, data, onSuccess, onError }) {
