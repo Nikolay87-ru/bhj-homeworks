@@ -48,6 +48,7 @@
 .modal_active {
   opacity: 1;
   visibility: visible;
+  font-size: 20px;
 }
 
 .overlay {
