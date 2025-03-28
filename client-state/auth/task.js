@@ -35,6 +35,8 @@ function sendToServer(login, password) {
     data: data,
     onSuccess: (response) => {
       if (response.success) {
+        const signInForm = document.getElementById("signin__form");
+        signInForm.reset();
         localStorage.setItem("user_id", response.user_id);
         showWelcomeMessage(response.user_id);
       } else {
@@ -81,11 +83,7 @@ function sendRequest({ method, url, data, onSuccess, onError }) {
   xhr.responseType = "json";
 
   xhr.addEventListener("load", () => {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      onSuccess?.(xhr.response);
-    } else {
-      onError?.(`Ошибка ${xhr.status}: ${xhr.statusText}`);
-    }
+    onSuccess?.(xhr.response);
   });
 
   xhr.addEventListener("error", () => onError?.("Ошибка сети"));
